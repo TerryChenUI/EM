@@ -1,0 +1,300 @@
+{ 
+    "_id" : ObjectId("5b5ddfcfc508f156b82571e6"), 
+    "is_menu" : true, 
+    "display_order" : NumberInt(0), 
+    "is_delete" : false, 
+    "name" : "权限管理", 
+    "key" : "auth", 
+    "url" : "/auth", 
+    "icon" : null, 
+    "description" : null, 
+    "parent_module" : null, 
+    "create_date" : ISODate("2018-07-29T15:39:59.424+0000"), 
+    "update_date" : ISODate("2018-07-29T15:39:59.425+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b5de02bc508f156b82571e7"), 
+    "is_menu" : true, 
+    "display_order" : NumberInt(0), 
+    "is_delete" : false, 
+    "name" : "用户管理", 
+    "key" : "auth.user", 
+    "url" : "/auth/users", 
+    "icon" : null, 
+    "description" : null, 
+    "parent_module" : ObjectId("5b5ddfcfc508f156b82571e6"), 
+    "create_date" : ISODate("2018-07-29T15:41:31.976+0000"), 
+    "update_date" : ISODate("2018-07-29T15:41:31.976+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b5de055c508f156b82571e8"), 
+    "is_menu" : false, 
+    "display_order" : NumberInt(0), 
+    "is_delete" : false, 
+    "name" : "用户列表", 
+    "key" : "auth.user.index", 
+    "url" : null, 
+    "icon" : null, 
+    "description" : null, 
+    "parent_module" : ObjectId("5b5de02bc508f156b82571e7"), 
+    "create_date" : ISODate("2018-07-29T15:42:13.643+0000"), 
+    "update_date" : ISODate("2018-07-29T15:42:13.643+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b5de068c508f156b82571e9"), 
+    "is_menu" : false, 
+    "display_order" : NumberInt(0), 
+    "is_delete" : false, 
+    "name" : "新建用户", 
+    "key" : "auth.user.create", 
+    "url" : null, 
+    "icon" : null, 
+    "description" : null, 
+    "parent_module" : ObjectId("5b5de02bc508f156b82571e7"), 
+    "create_date" : ISODate("2018-07-29T15:42:32.676+0000"), 
+    "update_date" : ISODate("2018-07-29T15:42:32.677+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b5de09cc759374160e76111"), 
+    "is_menu" : false, 
+    "display_order" : NumberInt(0), 
+    "is_delete" : false, 
+    "name" : "修改用户", 
+    "key" : "auth.user.update", 
+    "url" : null, 
+    "icon" : null, 
+    "description" : null, 
+    "parent_module" : ObjectId("5b5de02bc508f156b82571e7"), 
+    "create_date" : ISODate("2018-07-29T15:43:24.809+0000"), 
+    "update_date" : ISODate("2018-07-29T15:43:24.809+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b5de0a5c759374160e76112"), 
+    "is_menu" : false, 
+    "display_order" : NumberInt(0), 
+    "is_delete" : false, 
+    "name" : "删除用户", 
+    "key" : "auth.user.destory", 
+    "url" : null, 
+    "icon" : null, 
+    "description" : null, 
+    "parent_module" : ObjectId("5b5de02bc508f156b82571e7"), 
+    "create_date" : ISODate("2018-07-29T15:43:33.795+0000"), 
+    "update_date" : ISODate("2018-07-29T15:43:33.795+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b5de0b7c759374160e76113"), 
+    "is_menu" : false, 
+    "display_order" : NumberInt(0), 
+    "is_delete" : false, 
+    "name" : "查看用户详情", 
+    "key" : "auth.user.show", 
+    "url" : null, 
+    "icon" : null, 
+    "description" : null, 
+    "parent_module" : ObjectId("5b5de02bc508f156b82571e7"), 
+    "create_date" : ISODate("2018-07-29T15:43:51.593+0000"), 
+    "update_date" : ISODate("2018-07-29T15:43:51.593+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b5de0dbc759374160e76114"), 
+    "is_menu" : false, 
+    "display_order" : NumberInt(0), 
+    "is_delete" : false, 
+    "name" : "重置密码", 
+    "key" : "auth.user.resetPassword", 
+    "url" : null, 
+    "icon" : null, 
+    "description" : null, 
+    "parent_module" : ObjectId("5b5de02bc508f156b82571e7"), 
+    "create_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "update_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b5de12c71bb054b50c53a80"), 
+    "is_menu" : false, 
+    "display_order" : NumberInt(0), 
+    "is_delete" : false, 
+    "name" : "角色管理", 
+    "key" : "auth.role", 
+    "url" : "/auth/roles", 
+    "icon" : null, 
+    "description" : null, 
+    "parent_module" : ObjectId("5b5ddfcfc508f156b82571e6"), 
+    "create_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "update_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b5de18e71bb054b50c53a97"), 
+    "is_menu" : false, 
+    "display_order" : NumberInt(0), 
+    "is_delete" : false, 
+    "name" : "角色列表", 
+    "key" : "auth.role.index", 
+    "url" : null, 
+    "icon" : null, 
+    "description" : null, 
+    "parent_module" : ObjectId("5b5de12c71bb054b50c53a80"), 
+    "create_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "update_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b5de1b771bb054b50c53aa2"), 
+    "is_menu" : false, 
+    "display_order" : NumberInt(0), 
+    "is_delete" : false, 
+    "name" : "新建角色", 
+    "key" : "auth.role.create", 
+    "url" : null, 
+    "icon" : null, 
+    "description" : null, 
+    "parent_module" : ObjectId("5b5de12c71bb054b50c53a80"), 
+    "create_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "update_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b5de1ca71bb054b50c53aa9"), 
+    "is_menu" : false, 
+    "display_order" : NumberInt(0), 
+    "is_delete" : false, 
+    "name" : "修改角色", 
+    "key" : "auth.role.update", 
+    "url" : null, 
+    "icon" : null, 
+    "description" : null, 
+    "parent_module" : ObjectId("5b5de12c71bb054b50c53a80"), 
+    "create_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "update_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b5de1da71bb054b50c53ab0"), 
+    "is_menu" : false, 
+    "display_order" : NumberInt(0), 
+    "is_delete" : false, 
+    "name" : "删除角色", 
+    "key" : "auth.role.destory", 
+    "url" : null, 
+    "icon" : null, 
+    "description" : null, 
+    "parent_module" : ObjectId("5b5de12c71bb054b50c53a80"), 
+    "create_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "update_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b5de1ea71bb054b50c53ab7"), 
+    "is_menu" : false, 
+    "display_order" : NumberInt(0), 
+    "is_delete" : false, 
+    "name" : "查看角色详情", 
+    "key" : "auth.role.show", 
+    "url" : null, 
+    "icon" : null, 
+    "description" : null, 
+    "parent_module" : ObjectId("5b5de12c71bb054b50c53a80"), 
+    "create_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "update_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b5de22b71bb054b50c53ac7"), 
+    "is_menu" : false, 
+    "display_order" : NumberInt(0), 
+    "is_delete" : false, 
+    "name" : "模块管理", 
+    "key" : "auth.module", 
+    "url" : "/auth/modules", 
+    "icon" : null, 
+    "description" : null, 
+    "parent_module" : ObjectId("5b5ddfcfc508f156b82571e6"), 
+    "create_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "update_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b5de25a71bb054b50c53ad3"), 
+    "is_menu" : false, 
+    "display_order" : NumberInt(0), 
+    "is_delete" : false, 
+    "name" : "模块列表", 
+    "key" : "auth.module.index", 
+    "url" : null, 
+    "icon" : null, 
+    "description" : null, 
+    "parent_module" : ObjectId("5b5de22b71bb054b50c53ac7"), 
+    "create_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "update_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b5de25a71bb054b50c53ad4"), 
+    "is_menu" : false, 
+    "display_order" : NumberInt(0), 
+    "is_delete" : false, 
+    "name" : "新建模块", 
+    "key" : "auth.module.create", 
+    "url" : null, 
+    "icon" : null, 
+    "description" : null, 
+    "parent_module" : ObjectId("5b5de22b71bb054b50c53ac7"), 
+    "create_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "update_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b5de25a71bb054b50c53ad5"), 
+    "is_menu" : false, 
+    "display_order" : NumberInt(0), 
+    "is_delete" : false, 
+    "name" : "修改模块", 
+    "key" : "auth.module.update", 
+    "url" : null, 
+    "icon" : null, 
+    "description" : null, 
+    "parent_module" : ObjectId("5b5de22b71bb054b50c53ac7"), 
+    "create_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "update_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b5de25a71bb054b50c53ad6"), 
+    "is_menu" : false, 
+    "display_order" : NumberInt(0), 
+    "is_delete" : false, 
+    "name" : "删除模块", 
+    "key" : "auth.module.destory", 
+    "url" : null, 
+    "icon" : null, 
+    "description" : null, 
+    "parent_module" : ObjectId("5b5de22b71bb054b50c53ac7"), 
+    "create_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "update_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5b5de25a71bb054b50c53ad7"), 
+    "is_menu" : false, 
+    "display_order" : NumberInt(0), 
+    "is_delete" : false, 
+    "name" : "查看模块详情", 
+    "key" : "auth.module.show", 
+    "url" : null, 
+    "icon" : null, 
+    "description" : null, 
+    "parent_module" : ObjectId("5b5de22b71bb054b50c53ac7"), 
+    "create_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "update_date" : ISODate("2018-07-29T15:44:27.559+0000"), 
+    "__v" : NumberInt(0)
+}
