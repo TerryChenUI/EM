@@ -1,18 +1,26 @@
+'use strict';
 const BaseController = require('../../core/baseController');
 
 class UserController extends BaseController {
   async index(ctx) {
-    const { name, currentPage, pageSize } = ctx.query;
-    const query = {};
+    const { currentPage, pageSize } = ctx.query;
 
-    if (name) {
-      query.name = new RegExp(`${name}`);
+    const query = ctx.helper.getFilterQuery(ctx.query, ['key', 'auth_role']);
+
+    if (query.key) {
+      query.$or = [
+        { account: { $regex: new RegExp(query.key, 'i') } },
+        { name: { $regex: new RegExp(query.key, 'i') } },
+        { email: { $regex: new RegExp(query.key, 'i') } }
+      ];
+      delete query.key;
     }
 
     const options = {
       page: parseInt(currentPage) || 1,
       limit: parseInt(pageSize) || 10,
-      sort: '-create_date'
+      sort: '-create_date',
+      select: '-is_delete'
     };
 
     const result = await ctx.service.auth.user.getAll(query, options);
@@ -54,7 +62,10 @@ class UserController extends BaseController {
       return;
     }
 
-    const authUser = await ctx.service.auth.user.getByKey(data.account);
+    const authUser = await ctx.service.auth.user.getByQuery({
+      account: data.account,
+      is_delete: 0
+    });
     if (authUser) {
       this.failure({
         msg: '用户名已存在',
@@ -62,6 +73,8 @@ class UserController extends BaseController {
       });
       return;
     }
+
+    data.password = ctx.helper.getHashResult(data.password);
 
     const result = await ctx.service.auth.user.create(data);
     this.success(result);
@@ -76,8 +89,9 @@ class UserController extends BaseController {
 
   async resetPassword(ctx) {
     const data = ctx.request.body;
-    const result = await ctx.service.auth.user.update(data);
+    data.password = ctx.helper.getHashResult(data.password);
 
+    const result = await ctx.service.auth.user.update(data);
     this.success(result);
   }
 

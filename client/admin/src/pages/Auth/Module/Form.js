@@ -24,7 +24,7 @@ class ModuleForm extends PureComponent {
         let action = null;
         let tip = null;
         if (isEdit) {
-          values.id = data.id;
+          values.id = data._id;
           action = 'update';
           tip = '更新模块成功';
         } else {
@@ -57,7 +57,7 @@ class ModuleForm extends PureComponent {
           {getFieldDecorator('parent_module', {
             initialValue: data.parent_module,
           })(
-            <TreeSelect dropdownStyle={{ maxHeight: 400, overflow: 'auto' }} treeData={treeData} />
+            <TreeSelect dropdownStyle={{ maxHeight: 400, overflow: 'auto' }} treeData={treeData} allowClear={true}/>
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="模块名称">
@@ -81,21 +81,25 @@ class ModuleForm extends PureComponent {
         {getFieldValue('is_menu') ? (
           <div>
             <FormItem {...formItemLayout} label="菜单地址">
-              {getFieldDecorator('url', {
-                initialValue: data.url,
-                rules: [],
+              {getFieldDecorator('path', {
+                initialValue: data.path
               })(<Input placeholder="请输入菜单地址" />)}
             </FormItem>
+            <FormItem {...formItemLayout} label="隐藏菜单">
+              {getFieldDecorator('hide_in_menu', {
+                valuePropName: 'checked',
+                initialValue: data.hide_in_menu
+              })(<Switch />)}
+            </FormItem>
             <FormItem {...formItemLayout} label="图标字体">
-              {getFieldDecorator('iconfont', {
-                initialValue: data.iconfont,
-                rules: [],
+              {getFieldDecorator('icon', {
+                initialValue: data.icon
               })(<Input placeholder="请输入图标字体" />)}
             </FormItem>
           </div>
         ) : (
-          ''
-        )}
+            ''
+          )}
         <FormItem {...formItemLayout} label="排序">
           {getFieldDecorator('display_order', {
             initialValue: data.display_order || 0,

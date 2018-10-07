@@ -11,14 +11,19 @@ exports.mongoose = {
 exports.cors = {
   enable: true,
   package: 'egg-cors'
-}
+};
 
 exports.jwt = {
   enable: true,
   package: 'egg-jwt'
-}
+};
 
 exports.validate = {
-enable: true,
-package: 'egg-validate'
-}
+  enable: true,
+  package: 'egg-validate'
+};
+
+exports.passport = {
+  enable: true,
+  package: 'egg-passport'
+};

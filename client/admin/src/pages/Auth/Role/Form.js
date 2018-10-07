@@ -24,7 +24,7 @@ class RoleForm extends PureComponent {
         let action = null;
         let tip = null;
         if (isEdit) {
-          values.id = data;
+          values.id = data._id;
           action = 'update';
           tip = '更新角色成功';
         } else {
@@ -86,6 +86,7 @@ class RoleForm extends PureComponent {
             <TreeSelect
               dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
               treeCheckable={true}
+              showCheckedStrategy={TreeSelect.SHOW_ALL}
               treeData={moduleTree}
             />
           )}

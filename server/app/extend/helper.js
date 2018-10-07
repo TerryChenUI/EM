@@ -1,5 +1,6 @@
 'use strict';
 const lodash = require('lodash');
+const crypto = require('crypto');
 
 module.exports = {
   /**
@@ -46,13 +47,39 @@ module.exports = {
     return result;
   },
 
-  getQuery(query, props) {
-    Object.keys(lodash.pick(query, ...props), key => {
+  getFilterQuery(query, props = [], isDelete = false) {
+    const newQuery = lodash.pick(query, props);
+    Object.keys(newQuery).forEach(key => {
       if (!query[key]) {
-        delete query[key];
+        delete newQuery[key];
+      } else {
+        newQuery[key] = newQuery[key].trim();
       }
-    })
-    return lodash.pick(query, props);
+    });
+
+    if (!isDelete) {
+      newQuery.is_delete = 0;
+    }
+
+    return newQuery;
+  },
+
+  getHashResult(hexString) {
+    // 转成16进制，比如 0x4d 0xc9 ...
+    hexString = hexString.replace(/(\w{2,2})/g, '0x$1 ').trim();
+  
+    // 转成16进制数组，如 [0x4d, 0xc9, ...]
+    const arr = hexString.split(' ');
+  
+    // 转成对应的buffer，如：<Buffer 4d c9 ...>
+    const buff = Buffer.from(arr);
+  
+    const hash = crypto.createHash('md5');
+  
+    // 计算md5值
+    const result = hash.update(buff).digest('hex');
+  
+    return result;
   },
 
   errorCode: {

@@ -28,7 +28,7 @@ class UserForm extends PureComponent {
         let action = null;
         let tip = null;
         if (isEdit) {
-          values.id = data.id;
+          values.id = data._id;
           action = 'update';
           tip = '更新用户成功';
         } else {
@@ -119,21 +119,24 @@ class UserForm extends PureComponent {
         )}
         <FormItem {...formItemLayout} label="姓名">
           {getFieldDecorator('name', {
-            initialValue: data.name,
+            initialValue: data.name
           })(<Input placeholder="请输入姓名" />)}
         </FormItem>
         <FormItem {...formItemLayout} label="手机号码">
           {getFieldDecorator('mobile', {
-            initialValue: data.mobile,
+            initialValue: data.mobile
           })(<Input placeholder="请输入手机号码" />)}
         </FormItem>
         <FormItem {...formItemLayout} label="角色">
           {getFieldDecorator('auth_role', {
             initialValue: data.auth_role,
+            rules: [
+              { required: true, message: '用户角色不能为空' }
+            ],
           })(
             <Select>
-              {roles.map(t => (
-                <Option key={t.id} value={t.id}>
+              {roles && roles.map(t => (
+                <Option key={t._id} value={t._id}>
                   {t.name}
                 </Option>
               ))}

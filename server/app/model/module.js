@@ -6,9 +6,10 @@ module.exports = app => {
 
   const module = {
     name: { type: String, required: true }, // 模块名称
-    is_menu: { type: Boolean, default: false }, // 是否菜单
     key: { type: String }, // 权限标识
-    url: { type: String }, // url路径
+    is_menu: { type: Boolean, default: false }, // 是否菜单
+    hide_in_menu: { type: Boolean }, // 是否隐藏
+    path: { type: String }, // 路径
     icon: { type: String }, // 图标
     display_order: { type: Number, required: true, default: 1 },
     description: { type: String },

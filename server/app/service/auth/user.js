@@ -1,3 +1,4 @@
+'use strict';
 const Service = require('egg').Service;
 
 class UserService extends Service {
@@ -14,22 +15,12 @@ class UserService extends Service {
   }
 
   async show(id) {
-    const result = await this.ctx.model.User.findById(id);
+    const result = await this.ctx.model.User.findById(id).select('-is_delete');
     return result;
   }
 
-  async getByKey(key, id) {
-    const query = {
-      key
-    };
-
-    if (id) {
-      query.id = {
-        $ne: id
-      }
-    }
-
-    const result = await this.ctx.model.User.findOne(query);
+  async getByQuery(query) {
+    const result = await this.ctx.model.User.findOne(query).select('-is_delete');
     return result;
   }
 
@@ -39,17 +30,19 @@ class UserService extends Service {
   }
 
   async update(data) {
-    const result = await this.ctx.model.User.findByIdAndUpdate(data.id, data, { new: true });
+    const result = await this.ctx.model.User.findByIdAndUpdate(data.id, data, { new: true }).select('-is_delete');
     return result;
   }
 
   async remove(id) {
-    const result = await this.ctx.model.User.remove({ _id: id });
-    // this.ctx.model.AuthRole.update({},
-    //   {
-    //     $pull: { users: id },
-    //   }
-    // );
+    const result = await this.ctx.model.User.deleteOne({ _id: id });
+
+    this.ctx.model.Role.updateMany({},
+      {
+        $pull: { auth_users: id }
+      }
+    );
+    
     return result;
   }
 }

@@ -1,14 +1,18 @@
+'use strict';
 const BaseController = require('../../core/baseController');
 
 class RoleController extends BaseController {
   async index(ctx) {
+    const query = ctx.helper.getFilterQuery(ctx.query);
+
     const options = {
       page: 1,
       limit: 100,
-      sort: 'display_order'
+      sort: 'display_order',
+      select: '-is_delete'
     };
 
-    const result = await ctx.service.auth.role.getAll({}, options);
+    const result = await ctx.service.auth.role.getAll(query, options);
     this.success(result);
   }
 
@@ -47,7 +51,10 @@ class RoleController extends BaseController {
       return;
     }
 
-    const authRole = await ctx.service.auth.role.getByKey(data.key);
+    const authRole = await ctx.service.auth.role.getByQuery({
+      key: data.key,
+      is_delete: 0
+    });
     if (authRole) {
       this.failure({
         msg: '角色标识已存在',

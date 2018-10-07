@@ -42,7 +42,7 @@ export default {
       if (response && callback) {
         const list = yield select(state => state.authRole.list);
         let newList = [...list];
-        newList = newList.filter(t => t.id !== payload);
+        newList = newList.filter(t => t._id !== payload);
         yield put({
           type: 'save',
           payload: {

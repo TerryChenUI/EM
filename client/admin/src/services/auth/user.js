@@ -30,7 +30,7 @@ export async function update(params) {
 }
 
 export async function resetPwd(params) {
-  return request(`${ApiPrefix}/auth/users/resetpwd`, {
+  return request(`${ApiPrefix}/auth/users/resetpassword`, {
     method: 'PUT',
     body: params,
   });

@@ -99,26 +99,27 @@ class ModuleList extends PureComponent {
       form: { getFieldDecorator },
       pageModel: { systemTree },
     } = this.props;
+
     return (
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
+            <FormItem label="模块名称">
+              {getFieldDecorator('name')(<Input placeholder="请输入模块名称" />)}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
             <FormItem label="功能模块">
               {getFieldDecorator('parent_module')(
-                <Select style={{ width: '200px' }}>
+                <Select>
                   <Option value="">全部</Option>
-                  {systemTree.map(t => (
-                    <Option key={t.id} value={t.id}>
+                  {systemTree && systemTree.map(t => (
+                    <Option key={t._id} value={t._id}>
                       {t.name}
                     </Option>
                   ))}
                 </Select>
               )}
-            </FormItem>
-          </Col>
-          <Col md={8} sm={24}>
-            <FormItem label="模块名称">
-              {getFieldDecorator('name')(<Input placeholder="请输入模块名称" />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
@@ -185,9 +186,9 @@ class ModuleList extends PureComponent {
         title: '操作',
         render: (text, record) => (
           <Fragment>
-            <Link to={`${moduleRoute}/${record.id}`}>编辑</Link>
+            <Link to={`${moduleRoute}/${record._id}`}>编辑</Link>
             <Divider type="vertical" />
-            <a onClick={() => ConfirmDelete(dispatch, record.id, 'authModule/remove')}>删除</a>
+            <a onClick={() => ConfirmDelete(dispatch, record._id, 'authModule/remove')}>删除</a>
           </Fragment>
         ),
       },
@@ -208,7 +209,7 @@ class ModuleList extends PureComponent {
             </div>
             <Table
               loading={loading}
-              rowKey={record => record.id}
+              rowKey={record => record._id}
               dataSource={data}
               columns={columns}
               pagination={paginationProp}

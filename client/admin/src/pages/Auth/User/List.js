@@ -117,7 +117,7 @@ class UserList extends PureComponent {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
             <FormItem label="关键字">
-              {getFieldDecorator('key')(<Input placeholder="请输入用户名或邮箱" />)}
+              {getFieldDecorator('key')(<Input placeholder="请输入用户名，姓名或邮箱" />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
@@ -125,8 +125,8 @@ class UserList extends PureComponent {
               {getFieldDecorator('auth_role')(
                 <Select>
                   <Option value="">全部</Option>
-                  {roles.map(t => (
-                    <Option key={t.id} value={t.id}>
+                  {roles && roles.map(t => (
+                    <Option key={t._id} value={t._id}>
                       {t.name}
                     </Option>
                   ))}
@@ -190,9 +190,9 @@ class UserList extends PureComponent {
         title: '操作',
         render: (text, record) => (
           <Fragment>
-            <Link to={`${userRoute}/${record.id}`}>编辑</Link>
+            <Link to={`${userRoute}/${record._id}`}>编辑</Link>
             <Divider type="vertical" />
-            <a onClick={() => ConfirmDelete(dispatch, record.id, 'authUser/remove')}>删除</a>
+            <a onClick={() => ConfirmDelete(dispatch, record._id, 'authUser/remove')}>删除</a>
             <Divider type="vertical" />
             <a onClick={() => this.handleResetPwdVisible(true, record)}>重置密码</a>
           </Fragment>
@@ -215,7 +215,7 @@ class UserList extends PureComponent {
             </div>
             <Table
               loading={loading}
-              rowKey={record => record.id}
+              rowKey={record => record._id}
               dataSource={data}
               columns={columns}
               pagination={paginationProp}

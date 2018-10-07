@@ -5,8 +5,8 @@ export const transformTree = list => {
 
   return list.map(obj => {
     return {
-      label: obj.name,
-      value: obj.id,
+      title: obj.name,
+      value: obj._id,
       key: obj.id,
       children: transformTree(obj.children),
     };

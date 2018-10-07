@@ -20,7 +20,7 @@ class ResetPwdForm extends PureComponent {
     e.preventDefault();
     form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        values.id = data.id;
+        values.id = data._id;
         delete values.confirmPassword;
         dispatch({
           type: 'authUser/resetPwd',

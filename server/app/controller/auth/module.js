@@ -1,11 +1,11 @@
+'use strict';
 const BaseController = require('../../core/baseController');
-const lodash = require('lodash');
 
 class ModuleController extends BaseController {
   async index(ctx) {
     const { currentPage, pageSize } = ctx.query;
 
-    const query = this.ctx.helper.getQuery(ctx.query, ['name', 'parent_module']);
+    const query = ctx.helper.getFilterQuery(ctx.query, ['name', 'parent_module']);
 
     if (query.name) {
       query.name = new RegExp(query.name);
@@ -62,7 +62,10 @@ class ModuleController extends BaseController {
       return;
     }
 
-    const authModule = await ctx.service.auth.module.getByKey(data.key);
+    const authModule = await ctx.service.auth.module.getByQuery({
+      key: data.key,
+      is_delete: 0
+    });
     if (authModule) {
       this.failure({
         msg: '权限标识已存在',
@@ -77,7 +80,7 @@ class ModuleController extends BaseController {
 
   async update(ctx) {
     const data = ctx.request.body;
-    
+
     const paramRule = {
       name: {
         type: 'string',
@@ -95,7 +98,7 @@ class ModuleController extends BaseController {
       this.validateError(err);
       return;
     }
-    
+
     const result = await ctx.service.auth.module.update(data);
     this.success(result);
   }

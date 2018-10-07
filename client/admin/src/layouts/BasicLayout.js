@@ -88,7 +88,7 @@ class BasicLayout extends React.PureComponent {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'user/fetchCurrent',
+      type: 'global/fetchCurrent',
     });
     dispatch({
       type: 'setting/getSetting',
@@ -135,8 +135,28 @@ class BasicLayout extends React.PureComponent {
   getMenuData() {
     const {
       route: { routes },
+      menu
     } = this.props;
-    return formatter(routes);
+
+    menu.forEach(m => {
+      const rootItem = routes.find(r => r.path === m.path);
+      if (rootItem) {
+        m.name = rootItem.name;
+      }
+      if (m.children) {
+        m.children.forEach(c => {
+          const item = rootItem.routes.find(r => r.path === c.path);
+          if (item) {
+            c.name = item.name;
+            c.component = item.component;
+            c.exact = item.exact;
+          }
+          m.routes = m.children;
+        });
+      }
+    });
+
+    return formatter(menu);
   }
 
   /**
@@ -253,9 +273,12 @@ class BasicLayout extends React.PureComponent {
             {...this.props}
           />
           <Content style={this.getContentStyle()}>
-            <Authorized authority={routerConfig.authority} noMatch={<Exception403 />}>
-              {children}
-            </Authorized>
+            {
+              routerConfig &&
+              <Authorized authority={routerConfig.authority} noMatch={<Exception403 />}>
+                {children}
+              </Authorized>
+            }
           </Content>
           <Footer />
         </Layout>
@@ -279,6 +302,7 @@ class BasicLayout extends React.PureComponent {
 }
 
 export default connect(({ global, setting }) => ({
+  menu: global.menu,
   collapsed: global.collapsed,
   layout: setting.layout,
   ...setting,
