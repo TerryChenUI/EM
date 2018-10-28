@@ -18,14 +18,14 @@ export async function getById(id) {
 export async function create(params) {
   return request(`${ApiPrefix}/auth/roles`, {
     method: 'POST',
-    body: params,
+    body: params
   });
 }
 
 export async function update(params) {
   return request(`${ApiPrefix}/auth/roles/${params.id}`, {
     method: 'PUT',
-    body: params,
+    body: params
   });
 }
 

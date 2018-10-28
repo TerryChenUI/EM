@@ -14,6 +14,13 @@ export async function queryMenu() {
   });
 }
 
+export async function updatePassword(params) {
+  return request(`${ApiPrefix}/account/updatepassword`, {
+    method: 'PUT',
+    body: params
+  });
+}
+
 export async function login(params) {
   return request(`${ApiPrefix}/account/login`, {
     method: 'POST',

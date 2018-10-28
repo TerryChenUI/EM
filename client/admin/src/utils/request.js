@@ -119,6 +119,7 @@ export default function request(
       sessionStorage.removeItem(`${hashcode}:timestamp`);
     }
   }
+
   return fetch(url, newOptions)
     .then(checkStatus)
     .then(response => cachedSave(response, hashcode))

@@ -9,6 +9,7 @@ module.exports = app => {
   router.get('/api/v1/account/menu', controller.account.getMenu);
   router.post('/api/v1/account/login', controller.account.login);
   router.post('/api/v1/account/logout', controller.account.logout);
+  router.put('/api/v1/account/updatepassword', controller.account.updatePassword);
 
   // 用户管理
   router.get('/api/v1/auth/users', isAuthorized('auth.user.index'), controller.auth.user.index); // 用户列表

@@ -26,14 +26,14 @@ export async function getById(id) {
 export async function create(params) {
   return request(`${ApiPrefix}/auth/modules`, {
     method: 'POST',
-    body: params,
+    body: params
   });
 }
 
 export async function update(params) {
   return request(`${ApiPrefix}/auth/modules/${params.id}`, {
     method: 'PUT',
-    body: params,
+    body: params
   });
 }
 

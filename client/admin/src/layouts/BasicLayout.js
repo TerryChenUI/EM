@@ -133,7 +133,7 @@ class BasicLayout extends React.PureComponent {
   }
 
   getMenuData() {
-    const {
+    let {
       route: { routes },
       menu
     } = this.props;
@@ -155,6 +155,10 @@ class BasicLayout extends React.PureComponent {
         });
       }
     });
+
+    const commonMenu = routes.filter(t => t.isCommon);
+
+    menu = [...menu, ...commonMenu];
 
     return formatter(menu);
   }

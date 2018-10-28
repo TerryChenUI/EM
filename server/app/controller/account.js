@@ -12,13 +12,48 @@ class AccountController extends BaseController {
     }
 
     const userInfo = await ctx.service.auth.user.show(ctx.user.id);
+    const roleInfo = await ctx.service.auth.role.show(userInfo.auth_role);
 
-    this.success({
-      id: userInfo._id,
+    const currentUser = {
+      _id: userInfo.id,
       name: userInfo.name,
       account: userInfo.account,
-      email: userInfo.email
-    });
+      email: userInfo.email,
+      mobile: userInfo.mobile,
+      remark: userInfo.remark,
+      role: {
+        _id: roleInfo.id,
+        name: roleInfo.name
+      }
+    };
+
+    this.success(currentUser);
+  }
+
+  async updatePassword(ctx) {
+    if (!ctx.isAuthenticated()) {
+      this.failure({
+        data: ctx.user,
+        state: 401
+      });
+      return;
+    }
+
+    const password = ctx.helper.getHashResult(ctx.request.body.password);
+    const userInfo = await ctx.model.User.findOne({ _id: ctx.user.id, password });
+    if (!userInfo) {
+      this.failure({
+        msg: '旧密码不正确',
+        state: 400
+      });
+      return;
+    }
+
+    const newPassword = ctx.helper.getHashResult(ctx.request.body.newPassword);
+
+    await ctx.service.auth.user.update({ id: ctx.user.id, password: newPassword });
+
+    this.success({});
   }
 
   async getMenu(ctx) {

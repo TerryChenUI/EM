@@ -26,7 +26,7 @@ class ResetPwdForm extends PureComponent {
           type: 'authUser/resetPwd',
           payload: values,
           callback: () => {
-            message.success('更新密码成功');
+            message.success('重置密码成功');
             handleResetPwdVisible(false);
           },
         });
@@ -76,6 +76,7 @@ class ResetPwdForm extends PureComponent {
           {getFieldDecorator('password', {
             rules: [
               { required: true, message: '新密码不能为空' },
+              { len: 6, message: '新密码不能少于6个字符' },
               { validator: this.validateToNextPassword },
             ],
           })(<Input type="password" placeholder="请输入新密码" />)}

@@ -75,14 +75,15 @@ export default {
         },
       });
       reloadAuthorized();
-      yield put(
-        routerRedux.push({
-          pathname: '/user/login',
-          search: stringify({
-            redirect: window.location.href,
-          }),
-        })
-      );
+      // yield put(
+      //   routerRedux.push({
+      //     pathname: '/user/login',
+      //     search: stringify({
+      //       redirect: window.location.href,
+      //     }),
+      //   })
+      // );
+      window.location.href = `/user/login?${stringify({ redirect: window.location.href })}`;
     },
   },
 

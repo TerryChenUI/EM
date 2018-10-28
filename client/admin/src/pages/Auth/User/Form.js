@@ -17,7 +17,7 @@ const userRoute = '/auth/users';
 @Form.create()
 class UserForm extends PureComponent {
   state = {
-    confirmDirty: false,
+    confirmDirty: false
   };
 
   handleSubmit = e => {
@@ -85,11 +85,11 @@ class UserForm extends PureComponent {
           {isEdit ? (
             <span className="ant-form-text">{data.account}</span>
           ) : (
-            getFieldDecorator('account', {
-              initialValue: data.account,
-              rules: [{ required: true, message: '用户名不能为空' }],
-            })(<Input placeholder="请输入用户名" />)
-          )}
+              getFieldDecorator('account', {
+                initialValue: data.account,
+                rules: [{ required: true, message: '用户名不能为空' }],
+              })(<Input placeholder="请输入用户名" />)
+            )}
         </FormItem>
         {isEdit ? null : (
           <div>
@@ -97,6 +97,7 @@ class UserForm extends PureComponent {
               {getFieldDecorator('password', {
                 rules: [
                   { required: true, message: '密码不能为空' },
+                  { len: 6, message: '密码不能少于6个字符' },
                   { validator: this.validateToNextPassword },
                 ],
               })(<Input type="password" placeholder="请输入密码" />)}
@@ -144,8 +145,8 @@ class UserForm extends PureComponent {
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="备注">
-          {getFieldDecorator('description', {
-            initialValue: data.description,
+          {getFieldDecorator('remark', {
+            initialValue: data.remark,
           })(<TextArea style={{ minHeight: 32 }} rows={4} />)}
         </FormItem>
         <FormItem {...submitFormLayout} className={styles.submitButtons}>

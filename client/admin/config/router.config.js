@@ -24,82 +24,99 @@ export default [
         routes: [
           {
             path: '/auth/users',
-            name: 'userlist',
+            name: 'user-list',
             component: './Auth/User/List'
           },
           {
             path: '/auth/users/add',
-            name: 'useradd',
+            name: 'user-add',
             component: './Auth/User/Edit'
           },
           {
             path: '/auth/users/:id',
-            name: 'useredit',
+            name: 'user-edit',
             component: './Auth/User/Edit'
           },
           {
             path: '/auth/roles',
-            name: 'rolelist',
+            name: 'role-list',
             component: './Auth/Role/List'
           },
           {
             path: '/auth/roles/add',
-            name: 'roleadd',
+            name: 'role-add',
             component: './Auth/Role/Edit'
           },
           {
             path: '/auth/roles/:id',
-            name: 'roleedit',
+            name: 'role-edit',
             component: './Auth/Role/Edit'
           },
           {
             path: '/auth/modules',
-            name: 'modulelist',
+            name: 'module-list',
             component: './Auth/Module/List'
           },
           {
             path: '/auth/modules/add',
-            name: 'moduleadd',
+            name: 'module-add',
             component: './Auth/Module/Edit'
           },
           {
             path: '/auth/modules/:id',
-            name: 'moduleedit',
+            name: 'module-edit',
             component: './Auth/Module/Edit'
           }
         ],
       },
       {
-        name: 'exception',
-        icon: 'warning',
-        path: '/exception',
+        path: '/account',
+        name: 'account',
+        isCommon: true,
+        hideInMenu: true,
         routes: [
-          // exception
+          {
+            path: '/account/settings',
+            name: 'setting',
+            component: './Account/Setting'
+          },
+          {
+            path: '/account/updatepassword',
+            name: 'update-password',
+            component: './Account/UpdatePwd'
+          },
+        ]
+      },
+      {
+        name: 'exception',
+        path: '/exception',
+        isCommon: true,
+        hideInMenu: true,
+        routes: [
           {
             path: '/exception/403',
             name: 'not-permission',
-            component: './Exception/403',
+            component: './Exception/403'
           },
           {
             path: '/exception/404',
             name: 'not-find',
-            component: './Exception/404',
+            component: './Exception/404'
           },
           {
             path: '/exception/500',
             name: 'server-error',
-            component: './Exception/500',
+            component: './Exception/500'
           },
           {
             path: '/exception/trigger',
             name: 'trigger',
-            hideInMenu: true,
-            component: './Exception/TriggerException',
+            component: './Exception/TriggerException'
           },
-        ],
+        ]
       },
       {
-        component: '404',
+        component: '404'
       },
     ],
   },
