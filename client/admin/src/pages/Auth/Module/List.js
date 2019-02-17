@@ -1,16 +1,15 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Card, Form, Input, Select, Button, Table, Divider } from 'antd';
+import { Row, Col, Card, Form, Input, Button, Table, Divider, TreeSelect } from 'antd';
 import Link from 'umi/link';
 
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import ConfirmDelete from '@/pages/components/ConfirmDelete';
-import { getValue } from '@/utils';
+import { getValue, transformTree } from '@/utils';
 
 import styles from '@/less/list.less';
 
 const FormItem = Form.Item;
-const { Option } = Select;
 const moduleRoute = '/auth/modules';
 
 @connect(state => ({
@@ -53,7 +52,7 @@ class ModuleList extends PureComponent {
       currentPage: pagination.current,
       pageSize: pagination.pageSize,
       ...formValues,
-      ...filters,
+      ...filters
     };
     if (sorter.field) {
       params.sorter = `${sorter.field}_${sorter.order}`;
@@ -83,6 +82,10 @@ class ModuleList extends PureComponent {
         ...fieldsValue,
       };
 
+      if (values.parent_module === '-1') {
+        delete values.parent_module;
+      }
+
       this.setState({
         formValues: values,
       });
@@ -100,6 +103,13 @@ class ModuleList extends PureComponent {
       pageModel: { systemTree },
     } = this.props;
 
+    const moduleTreeData = transformTree(systemTree);
+    moduleTreeData.unshift({
+      title: '全部',
+      key: '-1',
+      value: '-1'
+    });
+
     return (
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
@@ -111,14 +121,11 @@ class ModuleList extends PureComponent {
           <Col md={8} sm={24}>
             <FormItem label="功能模块">
               {getFieldDecorator('parent_module')(
-                <Select>
-                  <Option value="">全部</Option>
-                  {systemTree && systemTree.map(t => (
-                    <Option key={t._id} value={t._id}>
-                      {t.name}
-                    </Option>
-                  ))}
-                </Select>
+                <TreeSelect
+                  dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                  treeData={moduleTreeData}
+                  showSearch
+                />
               )}
             </FormItem>
           </Col>
@@ -150,6 +157,7 @@ class ModuleList extends PureComponent {
       current: pagination.currentPage,
       pageSize: pagination.pageSize,
       total: pagination.total,
+      showTotal: total => `共 ${total} 项`
     };
 
     const columns = [

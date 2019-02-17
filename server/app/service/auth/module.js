@@ -14,13 +14,9 @@ class ModuleService extends Service {
     }
   }
 
-  async getSystem(options) {
-    const isAll = !options.filterHide;
-    const id = options.parentModule;
-
-    const result = await this.ctx.model.Module.find().select('-is_delete');
-    const modules = result.map(model => model.toObject());
-    return this.ctx.helper.arrayToTree(modules, 'id', 'parent_module');
+  async getAllList(query) {
+    const result = await this.ctx.model.Module.find(query).sort('display_order').select('-is_delete');
+    return result;
   }
 
   async show(id) {

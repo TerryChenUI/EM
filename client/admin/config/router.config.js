@@ -19,6 +19,42 @@ export default [
       { path: '/', redirect: '/dashboard' },
       { path: '/dashboard', name: 'home', component: './Dashboard/Index' },
       {
+        path: '/content',
+        name: 'content',
+        routes: [
+          {
+            path: '/content/categories',
+            name: 'category-list',
+            component: './Content/Category/List'
+          },
+          {
+            path: '/content/categories/add',
+            name: 'category-add',
+            component: './Content/Category/Edit'
+          },
+          {
+            path: '/content/categories/:id',
+            name: 'category-edit',
+            component: './Content/Category/Edit'
+          },
+          {
+            path: '/content/articles',
+            name: 'article-list',
+            component: './Content/Article/List'
+          },
+          {
+            path: '/content/articles/add',
+            name: 'article-add',
+            component: './Content/Article/Edit'
+          },
+          {
+            path: '/content/articles/:id',
+            name: 'article-edit',
+            component: './Content/Article/Edit'
+          }
+        ],
+      },
+      {
         path: '/auth',
         name: 'auth',
         routes: [
@@ -74,11 +110,12 @@ export default [
         name: 'account',
         isCommon: true,
         hideInMenu: true,
+        hideInBreadcrumb: true,
         routes: [
           {
             path: '/account/settings',
             name: 'setting',
-            component: './Account/Setting'
+            component: './Account/Setting',
           },
           {
             path: '/account/updatepassword',

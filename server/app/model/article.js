@@ -1,3 +1,4 @@
+'use strict';
 const mongoosePaginate = require('mongoose-paginate');
 const common = require('./common');
 

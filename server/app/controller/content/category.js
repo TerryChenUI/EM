@@ -1,3 +1,4 @@
+'use strict';
 const BaseController = require('../../core/baseController');
 
 class CategoryController extends BaseController {
@@ -6,7 +7,7 @@ class CategoryController extends BaseController {
     const query = {};
     const options = {
       page: parseInt(currentPage) || 1,
-      limit: parseInt(pageSize) || 15,
+      limit: parseInt(pageSize) || 10,
       sort: 'display_order'
     };
 
@@ -72,7 +73,7 @@ class CategoryController extends BaseController {
   }
 
   async destroy(ctx) {
-    const result = await ctx.service.content.category.destroy(ctx.params.id);
+    const result = await ctx.service.content.category.remove(ctx.params.id);
     this.success(result);
   }
 }

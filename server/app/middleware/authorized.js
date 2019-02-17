@@ -14,7 +14,7 @@ module.exports = action => {
         result: {
           userId: currentUser,
           uri: action
-        },
+        }
       };
     };
 
@@ -26,7 +26,7 @@ module.exports = action => {
           result: {
             userId: currentUser,
             uri: action
-          },
+          }
         };
         ctx.status = 401;
       } else {

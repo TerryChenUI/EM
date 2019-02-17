@@ -1,3 +1,4 @@
+'use strict';
 const Service = require('egg').Service;
 
 class CategoryService extends Service {
@@ -28,7 +29,7 @@ class CategoryService extends Service {
     return result;
   }
 
-  async destory(id) {
+  async remove(id) {
     const result = await this.ctx.model.Category.remove({ _id: id });
     return result;
   }

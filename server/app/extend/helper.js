@@ -19,7 +19,7 @@ module.exports = {
     return str;
   },
 
-  /**
+  /*
    * 数组格式转树状结构
    * @param   {array}     array
    * @param   {String}    id
@@ -67,18 +67,18 @@ module.exports = {
   getHashResult(hexString) {
     // 转成16进制，比如 0x4d 0xc9 ...
     hexString = hexString.replace(/(\w{2,2})/g, '0x$1 ').trim();
-  
+
     // 转成16进制数组，如 [0x4d, 0xc9, ...]
     const arr = hexString.split(' ');
-  
+
     // 转成对应的buffer，如：<Buffer 4d c9 ...>
     const buff = Buffer.from(arr);
-  
+
     const hash = crypto.createHash('md5');
-  
+
     // 计算md5值
     const result = hash.update(buff).digest('hex');
-  
+
     return result;
   },
 

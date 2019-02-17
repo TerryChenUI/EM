@@ -1,3 +1,10 @@
 {
-  "extends": "eslint-config-egg"
+  "extends": "eslint-config-egg",
+  "rules": {
+    "linebreak-style": [
+      "error",
+      "windows"
+    ],
+    "comma-dangle": [2, "never"]
+  }
 }

@@ -51,7 +51,7 @@ export default {
       if (response && callback) {
         const list = yield select(state => state.authUser.list);
         const newList = { ...list };
-        newList.data = newList.data.filter(t => t._id !== payload);
+        newList.data = list.data.filter(t => t._id !== payload);
         newList.pagination.total -= 1;
         yield put({
           type: 'save',

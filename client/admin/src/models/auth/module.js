@@ -1,4 +1,4 @@
-import { getList, getById, getSystem, create, update, remove } from '@/services/auth/module';
+import { getList, getById, getTreeList, create, update, remove } from '@/services/auth/module';
 
 export default {
   namespace: 'authModule',
@@ -23,7 +23,7 @@ export default {
       });
     },
     *fetchModuleTree({ payload }, { call, put }) {
-      const response = yield call(getSystem, payload);
+      const response = yield call(getTreeList, payload);
       yield put({
         type: 'save',
         payload: {
@@ -55,7 +55,7 @@ export default {
       if (response && callback) {
         const list = yield select(state => state.authModule.list);
         const newList = { ...list };
-        newList.data = newList.data.filter(t => t._id !== payload);
+        newList.data = list.data.filter(t => t._id !== payload);
         newList.pagination.total -= 1;
         yield put({
           type: 'save',

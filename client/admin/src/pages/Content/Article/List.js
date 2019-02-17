@@ -1,37 +1,29 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Card, Form, Input, Select, Button, Table, Modal, Divider } from 'antd';
+import { Row, Col, Card, Form, Input, Select, Button, Table, Divider } from 'antd';
 import Link from 'umi/link';
+import moment from 'moment';
 
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
-import ResetPwdForm from './ResetPwdForm';
 import ConfirmDelete from '@/pages/components/ConfirmDelete';
-import { getValue } from '@/utils';
-
 import styles from '@/less/list.less';
+import { getValue } from '@/utils';
 
 const FormItem = Form.Item;
 const { Option } = Select;
-const userRoute = '/auth/users';
+const articleRoute = '/content/articles';
 
 @connect(state => ({
-  pageModel: state.authUser,
-  roles: state.authRole.list,
-  loading: state.loading.models.authUser,
+  pageModel: state.article,
+  categories: state.category.list.data,
+  loading: state.loading.models.article
 }))
 @Form.create()
-class UserList extends PureComponent {
-  state = {
-    formValues: {},
-    resetPwdModal: {
-      isVisible: false,
-      current: null,
-    },
-  };
-
+class ArticleList extends PureComponent {
   componentDidMount() {
-    this.props.dispatch({
-      type: 'authRole/fetch',
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'category/fetch'
     });
 
     this.fetchList();
@@ -39,7 +31,7 @@ class UserList extends PureComponent {
 
   fetchList(payload) {
     this.props.dispatch({
-      type: 'authUser/fetch',
+      type: 'article/fetch',
       payload,
     });
   }
@@ -57,7 +49,7 @@ class UserList extends PureComponent {
       currentPage: pagination.current,
       pageSize: pagination.pageSize,
       ...formValues,
-      ...filters,
+      ...filters
     };
     if (sorter.field) {
       params.sorter = `${sorter.field}_${sorter.order}`;
@@ -92,40 +84,31 @@ class UserList extends PureComponent {
       });
 
       dispatch({
-        type: 'authUser/fetch',
+        type: 'article/fetch',
         payload: values
       });
-    });
-  };
-
-  handleResetPwdVisible = (flag, data) => {
-    this.setState({
-      resetPwdModal: {
-        isVisible: flag,
-        current: data
-      },
     });
   };
 
   renderForm() {
     const {
       form: { getFieldDecorator },
-      roles,
+      categories,
     } = this.props;
     return (
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <FormItem label="关键字">
-              {getFieldDecorator('key')(<Input placeholder="请输入用户名，姓名或邮箱" />)}
+            <FormItem label="标题">
+              {getFieldDecorator('title')(<Input placeholder="请输入标题" />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
-            <FormItem label="角色">
-              {getFieldDecorator('auth_role')(
+            <FormItem label="分类">
+              {getFieldDecorator('category')(
                 <Select>
                   <Option value="">全部</Option>
-                  {roles && roles.map(t => (
+                  {categories && categories.map(t => (
                     <Option key={t._id} value={t._id}>
                       {t.name}
                     </Option>
@@ -158,8 +141,6 @@ class UserList extends PureComponent {
       dispatch,
     } = this.props;
 
-    const { isVisible, current } = this.state.resetPwdModal;
-
     const paginationProp = {
       current: pagination.currentPage,
       pageSize: pagination.pageSize,
@@ -176,39 +157,44 @@ class UserList extends PureComponent {
         },
       },
       {
-        title: '用户名',
-        dataIndex: 'account',
+        title: '标题',
+        dataIndex: 'title',
       },
       {
-        title: '姓名',
-        dataIndex: 'name',
+        title: '分类',
+        dataIndex: 'category.name',
       },
       {
-        title: '邮箱',
-        dataIndex: 'email',
+        title: '状态',
+        dataIndex: 'status',
+      },
+      {
+        title: '创建日期',
+        dataIndex: 'create_date',
+        render(text, record) {
+          return moment(record.create_time).format('YYYY-MM-DD HH:mm:ss');
+        }
       },
       {
         title: '操作',
         render: (text, record) => (
           <Fragment>
-            <Link to={`${userRoute}/${record._id}`}>编辑</Link>
+            <Link to={`${articleRoute}/${record._id}`}>编辑</Link>
             <Divider type="vertical" />
-            <a onClick={() => ConfirmDelete(dispatch, record._id, 'authUser/remove')}>删除</a>
-            <Divider type="vertical" />
-            <a onClick={() => this.handleResetPwdVisible(true, record)}>重置密码</a>
+            <a onClick={() => ConfirmDelete(dispatch, record._id, 'article/remove')}>删除</a>
           </Fragment>
         ),
       },
     ];
 
     return (
-      <PageHeaderWrapper title="用户管理">
+      <PageHeaderWrapper title="文章管理">
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>
             <div className={`ant-divider ant-divider-horizontal ${styles.tableListDivider}`} />
             <div className={styles.tableListOperator}>
-              <Link to={`${userRoute}/add`}>
+              <Link to={`${articleRoute}/add`}>
                 <Button icon="plus" type="primary">
                   添加
                 </Button>
@@ -224,19 +210,9 @@ class UserList extends PureComponent {
             />
           </div>
         </Card>
-        {isVisible && (
-          <Modal
-            title="重置密码"
-            visible={isVisible}
-            footer={null}
-            onCancel={() => this.handleResetPwdVisible(false)}
-          >
-            <ResetPwdForm data={current} handleResetPwdVisible={this.handleResetPwdVisible} />
-          </Modal>
-        )}
       </PageHeaderWrapper>
     );
   }
 }
 
-export default UserList;
+export default ArticleList;

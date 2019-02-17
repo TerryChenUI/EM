@@ -28,14 +28,13 @@ module.exports = appInfo => {
 
   config.security = {
     csrf: {
-      enable: false,
+      enable: false
     }
   };
 
   config.jwt = {
     secret: '123456',
-    expiresIn: '14d',
-    enable: false
+    expiresIn: '7d'
   };
 
   config.static = {
@@ -47,7 +46,11 @@ module.exports = appInfo => {
     buffer: false,
     maxFiles: 1000
   };
-  
+
+  config.server = {
+    apiPrefix: '/api/v1'
+  };
+
   // config.onerror = {
   //   json(err, ctx) {
   //     ctx.body = { message: '服务器内部错误' };

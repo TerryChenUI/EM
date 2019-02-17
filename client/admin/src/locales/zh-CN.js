@@ -181,6 +181,13 @@ export default {
   'app.setting.copyinfo': '拷贝成功，请到 src/defaultSettings.js 中替换默认配置',
   'app.setting.production.hint':
     '配置栏只在开发环境用于预览，生产环境不会展现，请拷贝后手动修改配置文件',
+  'menu.content': '内容管理',
+  'menu.content.category-list': '文章分类',
+  'menu.content.category-add': '添加分类',
+  'menu.content.category-edit': '编辑分类',
+  'menu.content.article-list': '文章管理',
+  'menu.content.article-add': '添加文章',
+  'menu.content.article-edit': '编辑文章',
   'menu.auth': '权限管理',
   'menu.auth.user-list': '用户管理',
   'menu.auth.user-add': '添加用户',

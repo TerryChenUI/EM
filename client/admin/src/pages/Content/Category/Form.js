@@ -9,13 +9,13 @@ import styles from '@/less/form.less';
 const FormItem = Form.Item;
 const { TextArea } = Input;
 
-const roleRoute = '/auth/roles';
+const cateogryRoute = '/content/categories';
 
 @connect(({ loading }) => ({
-  submitting: loading.effects['authRole/create'] || loading.effects['authRole/update'] || false,
+  submitting: loading.effects['category/create'] || loading.effects['category/update'] || false,
 }))
 @Form.create()
-class RoleForm extends PureComponent {
+class CategoryForm extends PureComponent {
   handleSubmit = e => {
     const { dispatch, isEdit, data, form } = this.props;
     e.preventDefault();
@@ -26,17 +26,17 @@ class RoleForm extends PureComponent {
         if (isEdit) {
           values.id = data._id;
           action = 'update';
-          tip = '更新角色成功';
+          tip = '更新分类成功';
         } else {
           action = 'create';
-          tip = '添加角色成功';
+          tip = '添加分类成功';
         }
         dispatch({
-          type: `authRole/${action}`,
+          type: `category/${action}`,
           payload: values,
           callback: () => {
             message.success(tip);
-            router.push(roleRoute);
+            router.push(cateogryRoute);
           },
         });
       }
@@ -48,25 +48,25 @@ class RoleForm extends PureComponent {
       isEdit,
       form: { getFieldDecorator },
       data,
-      moduleTree,
       submitting,
     } = this.props;
 
     return (
       <Form onSubmit={this.handleSubmit}>
-        <FormItem {...formItemLayout} label="角色名称">
+        <FormItem {...formItemLayout} label="分类名称">
           {getFieldDecorator('name', {
             initialValue: data.name,
-            rules: [{ required: true, message: '角色名称不能为空' }],
-          })(<Input placeholder="请输入角色名称" />)}
+            rules: [{ required: true, message: '分类名称不能为空' }],
+          })(<Input placeholder="请输入分类名称" />)}
         </FormItem>
-        <FormItem {...formItemLayout} label="角色标识">
+        <FormItem {...formItemLayout} label="分类标识">
         {isEdit ? (
-            <span className="ant-form-text">{data.key}</span>
-          ) : (getFieldDecorator('key', {
+            <span className="ant-form-text">{data.slug}</span>
+          ) :
+           (getFieldDecorator('slug', {
             initialValue: data.key,
-            rules: [{ required: true, message: '角色标识不能为空' }],
-          })(<Input placeholder="请输入角色标识" />))
+            rules: [{ required: true, message: '分类标识不能为空' }],
+          })(<Input placeholder="请输入分类标识" />))
         }
         </FormItem>
         <FormItem {...formItemLayout} label="排序">
@@ -83,20 +83,8 @@ class RoleForm extends PureComponent {
             initialValue: data.description,
           })(<TextArea style={{ minHeight: 32 }} rows={4} />)}
         </FormItem>
-        <FormItem {...formItemLayout} label="功能模块">
-          {getFieldDecorator('auth_modules', {
-            initialValue: data.auth_modules,
-          })(
-            <TreeSelect
-              dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-              treeCheckable={true}
-              showCheckedStrategy={TreeSelect.SHOW_ALL}
-              treeData={moduleTree}
-            />
-          )}
-        </FormItem>
         <FormItem {...submitFormLayout} className={styles.submitButtons}>
-          <Link to={roleRoute}>
+          <Link to={cateogryRoute}>
             <Button className={styles.cancelButton}>取消</Button>
           </Link>
           <Button type="primary" htmlType="submit" loading={submitting}>
@@ -108,4 +96,4 @@ class RoleForm extends PureComponent {
   }
 }
 
-export default RoleForm;
+export default CategoryForm;

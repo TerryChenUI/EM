@@ -1,10 +1,13 @@
-import { getList, getById, create, update, remove } from '@/services/auth/role';
+import { getList, getById, create, update, remove } from '@/services/content/article';
 
 export default {
-  namespace: 'authRole',
+  namespace: 'article',
 
   state: {
-    list: [],
+    list: {
+      data: [],
+      pagination: {},
+    },
     current: {},
   },
 
@@ -40,9 +43,10 @@ export default {
     *remove({ payload, callback }, { call, put, select }) {
       const response = yield call(remove, payload);
       if (response && callback) {
-        const list = yield select(state => state.authRole.list);
-        let newList = [...list];
-        newList = list.filter(t => t._id !== payload);
+        const list = yield select(state => state.article.list);
+        const newList = { ...list };
+        newList.data = list.data.filter(t => t._id !== payload);
+        newList.pagination.total -= 1;
         yield put({
           type: 'save',
           payload: {

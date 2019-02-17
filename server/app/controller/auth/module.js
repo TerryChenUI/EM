@@ -11,6 +11,11 @@ class ModuleController extends BaseController {
       query.name = new RegExp(query.name);
     }
 
+    if (query.parent_module) {
+      // 递归查询
+      await ctx.service.auth.module.getAllList({});
+    }
+
     const options = {
       page: parseInt(currentPage) || 1,
       limit: parseInt(pageSize) || 10,
@@ -22,9 +27,12 @@ class ModuleController extends BaseController {
     this.success(result);
   }
 
-  async getSystem(ctx) {
-    const result = await ctx.service.auth.module.getSystem({});
-    this.success(result);
+  async getTreeList(ctx) {
+    const result = await ctx.service.auth.module.getAllList({});
+
+    const modules = result.map(model => model.toObject());
+    const treeList = this.ctx.helper.arrayToTree(modules, 'id', 'parent_module');
+    this.success(treeList);
   }
 
   async show(ctx) {

@@ -42,7 +42,6 @@ class UserService extends Service {
         $pull: { auth_users: id }
       }
     );
-    
     return result;
   }
 }

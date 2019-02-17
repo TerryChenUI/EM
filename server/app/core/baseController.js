@@ -1,3 +1,4 @@
+'use strict';
 const { Controller } = require('egg');
 
 class BaseController extends Controller {
@@ -40,7 +41,7 @@ class BaseController extends Controller {
       code: 900,
       state: 200,
       msg: ctx.helper.errorCode[900],
-      data: !isEnvProd ? err : {},
+      data: !isEnvProd ? err : {}
     });
   }
 }

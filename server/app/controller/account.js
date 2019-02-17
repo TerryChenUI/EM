@@ -2,6 +2,43 @@
 const BaseController = require('../core/baseController');
 
 class AccountController extends BaseController {
+  async login(ctx) {
+    const { userName, password } = ctx.request.body;
+    const userInfo = await ctx.service.auth.user.getByQuery({
+      account: userName,
+      password: ctx.helper.getHashResult(password)
+    });
+
+    if (userInfo) {
+      const roleInfo = await ctx.service.auth.role.show(userInfo.auth_role);
+
+      ctx.login({
+        id: userInfo._id,
+        username: userName,
+        password
+      });
+      this.success({
+        _id: userInfo._id,
+        account: userInfo.account,
+        role: {
+          name: roleInfo.name,
+          key: roleInfo.key
+        }
+      });
+    } else {
+      this.failure({
+        code: 4001,
+        msg: '账号或密码错误',
+        state: 200
+      });
+    }
+  }
+
+  async logout(ctx) {
+    ctx.logout();
+    this.success();
+  }
+
   async getCurrent(ctx) {
     if (!ctx.isAuthenticated()) {
       this.failure({
@@ -98,43 +135,6 @@ class AccountController extends BaseController {
     const menus = ctx.helper.arrayToTree(modules, 'id', 'parent');
 
     this.success(menus);
-  }
-
-  async login(ctx) {
-    const { userName, password } = ctx.request.body;
-    const userInfo = await ctx.service.auth.user.getByQuery({
-      account: userName,
-      password: ctx.helper.getHashResult(password)
-    });
-
-    if (userInfo) {
-      const roleInfo = await ctx.service.auth.role.show(userInfo.auth_role);
-
-      ctx.login({
-        id: userInfo._id,
-        username: userName,
-        password
-      });
-      this.success({
-        _id: userInfo._id,
-        account: userInfo.account,
-        role: {
-          name: roleInfo.name,
-          key: roleInfo.key
-        }
-      });
-    } else {
-      this.failure({
-        code: 4001,
-        msg: '账号或密码错误',
-        state: 200
-      });
-    }
-  }
-
-  async logout(ctx) {
-    ctx.logout();
-    this.success();
   }
 }
 
