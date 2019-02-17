@@ -11,7 +11,7 @@ class ModuleService extends Service {
         pageSize: result.limit,
         total: result.total
       }
-    }
+    };
   }
 
   async getAllList(query) {

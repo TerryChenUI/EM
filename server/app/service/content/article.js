@@ -1,4 +1,3 @@
-
 'use strict';
 const Service = require('egg').Service;
 
@@ -12,7 +11,7 @@ class ArticleService extends Service {
         pageSize: result.limit,
         total: result.total
       }
-    }
+    };
   }
 
   async show(id) {

@@ -129,7 +129,7 @@ class AccountController extends BaseController {
         hideInMenu: t.hide_in_menu,
         icon: t.icon,
         parent: t.parent_module
-      }
+      };
     });
 
     const menus = ctx.helper.arrayToTree(modules, 'id', 'parent');

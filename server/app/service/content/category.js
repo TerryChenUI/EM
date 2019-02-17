@@ -11,7 +11,7 @@ class CategoryService extends Service {
         pageSize: result.limit,
         total: result.total
       }
-    }
+    };
   }
 
   async show(id) {
