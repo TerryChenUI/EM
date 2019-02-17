@@ -17,7 +17,7 @@ const userRoute = '/auth/users';
 @connect(state => ({
   pageModel: state.authUser,
   roles: state.authRole.list,
-  loading: state.loading.models.authUser,
+  loading: state.loading.models.authUser
 }))
 @Form.create()
 class UserList extends PureComponent {
@@ -25,13 +25,13 @@ class UserList extends PureComponent {
     formValues: {},
     resetPwdModal: {
       isVisible: false,
-      current: null,
+      current: null
     },
   };
 
   componentDidMount() {
     this.props.dispatch({
-      type: 'authRole/fetch',
+      type: 'authRole/fetch'
     });
 
     this.fetchList();
@@ -40,7 +40,7 @@ class UserList extends PureComponent {
   fetchList(payload) {
     this.props.dispatch({
       type: 'authUser/fetch',
-      payload,
+      payload
     });
   }
 
@@ -61,6 +61,7 @@ class UserList extends PureComponent {
     };
     if (sorter.field) {
       params.sorter = `${sorter.field}_${sorter.order}`;
+      return;
     }
 
     this.fetchList(params);
@@ -110,7 +111,7 @@ class UserList extends PureComponent {
   renderForm() {
     const {
       form: { getFieldDecorator },
-      roles,
+      roles
     } = this.props;
     return (
       <Form onSubmit={this.handleSearch} layout="inline">
@@ -152,7 +153,7 @@ class UserList extends PureComponent {
   render() {
     const {
       pageModel: {
-        list: { data, pagination },
+        list: { data, pagination }
       },
       loading,
       dispatch,
@@ -177,15 +178,15 @@ class UserList extends PureComponent {
       },
       {
         title: '用户名',
-        dataIndex: 'account',
-      },
-      {
-        title: '姓名',
-        dataIndex: 'name',
+        dataIndex: 'account'
       },
       {
         title: '邮箱',
-        dataIndex: 'email',
+        dataIndex: 'email'
+      },
+      {
+        title: '姓名',
+        dataIndex: 'name'
       },
       {
         title: '操作',
@@ -193,7 +194,7 @@ class UserList extends PureComponent {
           <Fragment>
             <Link to={`${userRoute}/${record._id}`}>编辑</Link>
             <Divider type="vertical" />
-            <a onClick={() => ConfirmDelete(dispatch, record._id, 'authUser/remove')}>删除</a>
+            <a onClick={() => ConfirmDelete(dispatch, record._id, record.account, 'authUser/remove')}>删除</a>
             <Divider type="vertical" />
             <a onClick={() => this.handleResetPwdVisible(true, record)}>重置密码</a>
           </Fragment>

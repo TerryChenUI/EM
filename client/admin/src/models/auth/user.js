@@ -2,13 +2,12 @@ import { getList, getById, create, update, resetPwd, remove } from '@/services/a
 
 export default {
   namespace: 'authUser',
-
   state: {
     list: {
       data: [],
-      pagination: {},
+      pagination: {}
     },
-    current: {},
+    current: {}
   },
 
   effects: {
@@ -17,15 +16,15 @@ export default {
       yield put({
         type: 'save',
         payload: {
-          list: response,
-        },
+          list: response
+        }
       });
     },
     *fetchCurrent({ payload }, { call, put }) {
       const response = yield call(getById, payload);
       yield put({
         type: 'updateCurrent',
-        payload: response,
+        payload: response
       });
     },
     *create({ payload, callback }, { call }) {
@@ -56,16 +55,16 @@ export default {
         yield put({
           type: 'save',
           payload: {
-            list: newList,
+            list: newList
           },
         });
         callback();
       }
     },
-    *resetCurrent({}, { put }) {
+    *resetCurrent({ }, { put }) {
       yield put({
         type: 'updateCurrent',
-        payload: {},
+        payload: {}
       });
     },
   },
@@ -74,13 +73,13 @@ export default {
     save(state, action) {
       return {
         ...state,
-        ...action.payload,
+        ...action.payload
       };
     },
     updateCurrent(state, action) {
       return {
         ...state,
-        current: action.payload,
+        current: action.payload
       };
     },
   },

@@ -53,6 +53,7 @@ class ArticleList extends PureComponent {
     };
     if (sorter.field) {
       params.sorter = `${sorter.field}_${sorter.order}`;
+      return;
     }
 
     this.fetchList(params);
@@ -181,7 +182,7 @@ class ArticleList extends PureComponent {
           <Fragment>
             <Link to={`${articleRoute}/${record._id}`}>编辑</Link>
             <Divider type="vertical" />
-            <a onClick={() => ConfirmDelete(dispatch, record._id, 'article/remove')}>删除</a>
+            <a onClick={() => ConfirmDelete(dispatch, record._id, record.title, 'article/remove')}>删除</a>
           </Fragment>
         ),
       },

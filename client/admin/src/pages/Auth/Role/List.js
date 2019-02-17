@@ -59,7 +59,7 @@ class RoleList extends PureComponent {
           <Fragment>
             <Link to={`${roleRoute}/${record._id}`}>编辑</Link>
             <Divider type="vertical" />
-            <a onClick={() => ConfirmDelete(dispatch, record._id, 'authRole/remove')}>删除</a>
+            <a onClick={() => ConfirmDelete(dispatch, record._id, record.name, 'authRole/remove')}>删除</a>
           </Fragment>
         ),
       },

@@ -1,10 +1,10 @@
 import { stringify } from 'qs';
 import request from '@/utils/request';
 
-const ApiPrefix = '/api/v1';
+const apiModule = '/auth/users';
 
 export async function getList(params) {
-  let url = `${ApiPrefix}/auth/users`;
+  let url = apiModule;
   if (params) {
     url = `${url}?${stringify(params)}`;
   }
@@ -12,32 +12,32 @@ export async function getList(params) {
 }
 
 export async function getById(id) {
-  return request(`${ApiPrefix}/auth/users/${id}`);
+  return request(`${apiModule}/${id}`);
 }
 
 export async function create(params) {
-  return request(`${ApiPrefix}/auth/users`, {
+  return request(apiModule, {
     method: 'POST',
     body: params
   });
 }
 
 export async function update(params) {
-  return request(`${ApiPrefix}/auth/users/${params.id}`, {
+  return request(`${apiModule}/${params.id}`, {
     method: 'PUT',
     body: params
   });
 }
 
 export async function resetPwd(params) {
-  return request(`${ApiPrefix}/auth/users/resetpassword`, {
+  return request(`${apiModule}/resetpassword`, {
     method: 'PUT',
     body: params
   });
 }
 
 export async function remove(id) {
-  return request(`${ApiPrefix}/auth/users/${id}`, {
+  return request(`${apiModule}/${id}`, {
     method: 'DELETE',
   });
 }

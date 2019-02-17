@@ -7,7 +7,7 @@ import styles from '@/less/form.less';
 const FormItem = Form.Item;
 
 @connect(({ loading }) => ({
-  submitting: loading.effects['authUser/resetPwd'] || false,
+  submitting: loading.effects['authUser/resetPwd'] || false
 }))
 @Form.create()
 class ResetPwdForm extends PureComponent {

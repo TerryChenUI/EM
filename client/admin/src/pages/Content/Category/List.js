@@ -95,7 +95,7 @@ class CategoryList extends PureComponent {
           <Fragment>
             <Link to={`${categoryRoute}/${record._id}`}>编辑</Link>
             <Divider type="vertical" />
-            <a onClick={() => ConfirmDelete(dispatch, record._id, 'category/remove')}>删除</a>
+            <a onClick={() => ConfirmDelete(dispatch, record._id, record.name, 'category/remove')}>删除</a>
           </Fragment>
         ),
       },

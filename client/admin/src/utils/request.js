@@ -3,6 +3,7 @@ import { notification } from 'antd';
 import router from 'umi/router';
 import hash from 'hash.js';
 import { isAntdPro } from './utils';
+import { apiPrefix } from '@/constants';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -69,11 +70,12 @@ export default function request(
     expirys: isAntdPro(),
   }
 ) {
+  const requestUrl = apiPrefix + url;
   /**
    * Produce fingerprints based on url and parameters
    * Maybe url has the same parameters
    */
-  const fingerprint = url + (options.body ? JSON.stringify(options.body) : '');
+  const fingerprint = requestUrl + (options.body ? JSON.stringify(options.body) : '');
   const hashcode = hash
     .sha256()
     .update(fingerprint)
@@ -120,7 +122,7 @@ export default function request(
     }
   }
 
-  return fetch(url, newOptions)
+  return fetch(requestUrl, newOptions)
     .then(checkStatus)
     .then(response => cachedSave(response, hashcode))
     .then(response => {

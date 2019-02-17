@@ -56,6 +56,7 @@ class ModuleList extends PureComponent {
     };
     if (sorter.field) {
       params.sorter = `${sorter.field}_${sorter.order}`;
+      return;
     }
 
     this.fetchList(params);
@@ -196,7 +197,7 @@ class ModuleList extends PureComponent {
           <Fragment>
             <Link to={`${moduleRoute}/${record._id}`}>编辑</Link>
             <Divider type="vertical" />
-            <a onClick={() => ConfirmDelete(dispatch, record._id, 'authModule/remove')}>删除</a>
+            <a onClick={() => ConfirmDelete(dispatch, record._id, record.name, 'authModule/remove')}>删除</a>
           </Fragment>
         ),
       },

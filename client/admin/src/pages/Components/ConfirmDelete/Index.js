@@ -1,9 +1,9 @@
 import { Modal, message } from 'antd';
 
-export default (dispatch, id, action) => {
+export default (dispatch, id, title, action) => {
   Modal.confirm({
-    title: '你确认删除这条记录吗？',
-    okText: '确认',
+    title: `你确认要删除'${title}'？`,
+    okText: '删除',
     cancelText: '取消',
     onOk: () => {
       dispatch({
@@ -11,7 +11,7 @@ export default (dispatch, id, action) => {
         payload: id,
         callback: () => {
           message.success('删除成功');
-        },
+        }
       });
     },
   });

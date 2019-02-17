@@ -1,35 +1,35 @@
 import request from '@/utils/request';
 
-const ApiPrefix = '/api/v1';
+const apiModule = '/account';
 
 export async function queryCurrent() {
-  return request(`${ApiPrefix}/account/currentuser`, {
+  return request(`${apiModule}/currentuser`, {
     method: 'GET'
   });
 }
 
 export async function queryMenu() {
-  return request(`${ApiPrefix}/account/menu`, {
+  return request(`${apiModule}/menu`, {
     method: 'GET'
   });
 }
 
 export async function updatePassword(params) {
-  return request(`${ApiPrefix}/account/updatepassword`, {
+  return request(`${apiModule}/updatepassword`, {
     method: 'PUT',
     body: params
   });
 }
 
 export async function login(params) {
-  return request(`${ApiPrefix}/account/login`, {
+  return request(`${apiModule}/login`, {
     method: 'POST',
     body: params
   });
 }
 
 export async function logout() {
-  return request(`${ApiPrefix}/account/logout`, {
+  return request(`${apiModule}/logout`, {
     method: 'post'
   });
 }

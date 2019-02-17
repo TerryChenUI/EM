@@ -74,7 +74,7 @@ class ArticleForm extends PureComponent {
             </Select>
           )}
         </FormItem>
-        <FormItem {...formItemLayout} label="Meta关键字">
+        <FormItem {...formItemLayout} label="关键字">
           {getFieldDecorator('keyword', {
             initialValue: data.keyword
           })(<TextArea style={{ minHeight: 32 }} rows={3} placeholder="请输入关键字" />)}
